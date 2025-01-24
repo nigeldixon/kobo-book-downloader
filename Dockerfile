@@ -12,7 +12,7 @@ COPY . .
 
 RUN poetry env use system
 RUN poetry config virtualenvs.create false
-RUN poetry debug
+RUN poetry debug resolve
 RUN poetry install --no-dev
 
 # Distributable Stage
