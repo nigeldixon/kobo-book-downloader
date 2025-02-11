@@ -17,7 +17,7 @@ RUN poetry install --no-dev
 
 # Distributable Stage
 FROM python:3.9-alpine
-WORKDIR /opt/kobodl/src
+WORKDIR /home
 
 ENV PATH="/opt/kobodl/local/venv/bin:$PATH"
 
