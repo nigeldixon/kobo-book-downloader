@@ -34,7 +34,7 @@ RUN apt-get update && apt-get -y install tini && \
     "https://download.calibre-ebook.com/${CALIBRE_VERSION}/calibre-${CALIBRE_VERSION}-$(echo "$TARGETARCH" | sed "s/amd/x86_/").txz" && \
   tar xf \
     /tmp/calibre.txz \
-    -C /app/calibre && \
+    -C /app/calibre
 
 COPY --from=builder /opt/kobodl /opt/kobodl
 
