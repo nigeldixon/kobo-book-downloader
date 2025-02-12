@@ -23,7 +23,6 @@ WORKDIR /opt/kobodl/src
 ENV PATH="/opt/kobodl/local/venv/bin:$PATH"
 
 RUN apt-get update && apt-get -y install tini jq && \
-
   if [ -z ${CALIBRE_RELEASE+x} ]; then \
     CALIBRE_RELEASE=$(curl -sX GET "https://api.github.com/repos/kovidgoyal/calibre/releases/latest" \
     | jq -r .tag_name); \
