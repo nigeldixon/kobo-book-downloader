@@ -16,12 +16,26 @@ RUN poetry debug resolve
 RUN poetry install --no-dev
 
 # Distributable Stage
-FROM python:3.9-alpine
+FROM python:3.9-bookworm
 WORKDIR /opt/kobodl/src
 
 ENV PATH="/opt/kobodl/local/venv/bin:$PATH"
 
-RUN apk add --no-cache tini
+RUN apt-get update && apt-get -y install tini && /
+    echo "**** INSTALL CALIBRE ****" && \
+  if [ -z ${CALIBRE_RELEASE+x} ]; then \
+    CALIBRE_RELEASE=$(curl -sX GET "https://api.github.com/repos/kovidgoyal/calibre/releases/latest" \
+    | jq -r .tag_name); \
+  fi && \
+  CALIBRE_VERSION="$(echo ${CALIBRE_RELEASE} | cut -c2-)" && \ 
+  mkdir -p /app/calibre && \
+  curl -o \
+    /tmp/calibre.txz -L \
+    "https://download.calibre-ebook.com/${CALIBRE_VERSION}/calibre-${CALIBRE_VERSION}-$(echo "$TARGETARCH" | sed "s/amd/x86_/").txz" && \
+  tar xf \
+    /tmp/calibre.txz \
+    -C /app/calibre && \
+  echo "[[ DONE ]]"
 
 COPY --from=builder /opt/kobodl /opt/kobodl
 
