@@ -22,7 +22,7 @@ WORKDIR /opt/kobodl/src
 ENV PATH="/opt/kobodl/local/venv/bin:$PATH"
 
 RUN apt-get update && apt-get -y install tini && /
-    echo "**** INSTALL CALIBRE ****" && \
+
   if [ -z ${CALIBRE_RELEASE+x} ]; then \
     CALIBRE_RELEASE=$(curl -sX GET "https://api.github.com/repos/kovidgoyal/calibre/releases/latest" \
     | jq -r .tag_name); \
@@ -35,7 +35,6 @@ RUN apt-get update && apt-get -y install tini && /
   tar xf \
     /tmp/calibre.txz \
     -C /app/calibre && \
-  echo "[[ DONE ]]"
 
 COPY --from=builder /opt/kobodl /opt/kobodl
 
