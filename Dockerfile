@@ -33,7 +33,7 @@ RUN apt-get update && apt-get -y install tini jq sed curl && \
   echo $CALIBRE_VERSION && \
   mkdir -p /app/calibre && \
   echo "https://download.calibre-ebook.com/${CALIBRE_VERSION}/calibre-${CALIBRE_VERSION}-$(echo "${TARGETARCH}" | sed "s/amd/x86_/").txz" && \
-  curl -o --trace \
+  curl -o \
     /tmp/calibre.txz -L \
     "https://download.calibre-ebook.com/${CALIBRE_VERSION}/calibre-${CALIBRE_VERSION}-$(echo "${TARGETARCH}" | sed "s/amd/x86_/").txz" && \
   tar xf \
