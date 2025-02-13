@@ -1,7 +1,6 @@
 FROM python:3.9-alpine AS builder
 WORKDIR /opt/kobodl/src
 
-ARG TARGETARCH
 ENV PATH="/opt/kobodl/local/venv/bin:$PATH"
 ENV VIRTUAL_ENV="/opt/kobodl/local/venv"
 
@@ -19,6 +18,8 @@ RUN poetry install --no-dev
 # Distributable Stage
 FROM python:3.9-bookworm
 WORKDIR /opt/kobodl/src
+
+ARG TARGETARCH
 
 ENV PATH="/opt/kobodl/local/venv/bin:$PATH"
 
